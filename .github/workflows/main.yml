@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     container: "opensuse/tumbleweed"
 
+
     steps:
       - run: zypper -n install git
       - uses: actions/checkout@v2
@@ -21,4 +22,4 @@ jobs:
       - name: Run a one-line script
         run: echo ${{ github.ref }} ${{ github.head_ref }} ${{ github.base_ref }}
       - name: Clone output repository
-        run: git clone https://${{ API_TOKEN_GITHUB }}@github.com/marxin/test-output.git"
+        run: git clone https://${{ secrets.API_TOKEN_GITHUB }}@github.com/marxin/test-output.git"
