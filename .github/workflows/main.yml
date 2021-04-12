@@ -20,9 +20,13 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo ${{ github.ref }} ${{ github.head_ref }} ${{ github.base_ref }}
+        run: echo "${{ github.ref }}" "${{ github.head_ref }}" "${{ github.base_ref }}"
       - name: Clone output repository
         run: git clone https://${{ secrets.API_TOKEN_GITHUB }}@github.com/marxin/test-output.git
+      - name: Setup git config
+        run: |
+          git config --global user.email mliska@suse.cz
+          git config --global user.name marxin
       - name: Modify repo
         run: |
           cd test-output
