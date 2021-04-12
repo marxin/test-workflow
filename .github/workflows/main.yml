@@ -31,7 +31,7 @@ jobs:
         run: cd test-output
       - name: Change branch
         run: git checkout -b ${{ github.head_ref }}
-        if: ${{ github.ref != 'refs/heads/main' }}
+        if: github.ref != 'refs/heads/main'
       - name: Modify repo
         run: |
           echo ${{ github.sha }} >> revision
