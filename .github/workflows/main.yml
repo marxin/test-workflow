@@ -27,10 +27,14 @@ jobs:
         run: |
           git config --global user.email mliska@suse.cz
           git config --global user.name marxin
+      - name: Change directory
+        run: cd test-output
+      - name: Change branch
+        run: git checkout -b ${{ github.head_ref }}
+        if: ${{ github.ref != 'refs/heads/main' }}
       - name: Modify repo
         run: |
-          cd test-output
           echo ${{ github.sha }} >> revision
           git add revision
           git commit -a -m 'Update'
-          git push origin master
+          git push
