@@ -23,3 +23,10 @@ jobs:
         run: echo ${{ github.ref }} ${{ github.head_ref }} ${{ github.base_ref }}
       - name: Clone output repository
         run: git clone https://${{ secrets.API_TOKEN_GITHUB }}@github.com/marxin/test-output.git
+      - name: Modify repo
+        run: |
+          cd test-output
+          echo ${{ github.sha }} >> revision
+          git add revision
+          git commit -a -m 'Update'
+          git push origin master
