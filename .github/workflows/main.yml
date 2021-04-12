@@ -27,7 +27,9 @@ jobs:
           git config --global user.email mliska@suse.cz
           git config --global user.name marxin
       - name: Change branch
-        run: git checkout -b ${{ github.head_ref }}
+        run: |
+          git checkout -b ${{ github.head_ref }}
+          git push --set-upstream origin ${{ github.head_ref }}
         if: github.ref != 'refs/heads/master'
         working-directory: test-output
       - name: Modify repo
