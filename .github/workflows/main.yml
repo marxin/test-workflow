@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     container: "opensuse/tumbleweed"
 
-
     steps:
       - run: zypper -n install git
       - uses: actions/checkout@v2
@@ -28,13 +27,15 @@ jobs:
           git config --global user.email mliska@suse.cz
           git config --global user.name marxin
       - name: Change branch
-        run: git checkout -b ${{ github.head_ref }}
+        run: |
+          git checkout -b ${{ github.head_ref }}
+          git push --set-upstream origin ${{ github.head_ref }}
         if: github.ref != 'refs/heads/master'
         working-directory: test-output
       - name: Modify repo
         run: |
           echo ${{ github.sha }} > revision
           git add revision
-          git commit -a -m 'Update\n\nhttps://github.com/marxin/test-workflow/commit${{ github.sha }}'
+          git commit -a -m "Update\n\nhttps://github.com/marxin/test-workflow/commit/${{ github.sha }}"
           git push
         working-directory: test-output
