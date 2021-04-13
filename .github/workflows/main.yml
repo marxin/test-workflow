@@ -45,5 +45,5 @@ jobs:
         with:
           issue-number: ${{github.event.number}}
           body: |
-            It is published here: https://github.com/marxin/test-output/commit/$OUTPUT_SHA
+            It is published here: https://github.com/marxin/test-output/commit/${{ env.OUTPUT_SHA }}
         if: github.ref != 'refs/heads/master'
