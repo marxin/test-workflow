@@ -36,6 +36,6 @@ jobs:
         run: |
           echo ${{ github.sha }} > revision
           git add revision
-          git commit -a -m "Update\n\nhttps://github.com/marxin/test-workflow/commit/${{ github.sha }}"
+          git commit -a -m "Update" -m "https://github.com/marxin/test-workflow/commit/${{ github.sha }}"
           git push
         working-directory: test-output
