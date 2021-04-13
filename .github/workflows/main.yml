@@ -29,8 +29,7 @@ jobs:
       - name: Change branch
         run: |
           git checkout -b ${{ github.head_ref }}
-          git pull
-          git push --set-upstream origin ${{ github.head_ref }}
+          git push --set-upstream origin ${{ github.head_ref }} -f
         if: github.ref != 'refs/heads/master'
         working-directory: test-output
       - name: Modify repo
