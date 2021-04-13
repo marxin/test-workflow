@@ -37,7 +37,7 @@ jobs:
           echo ${{ github.sha }} > revision
           git add revision
           git commit -a -m "Update" -m "https://github.com/marxin/test-workflow/commit/${{ github.sha }}"
-          git push
+          git push -f
           export OUTPUT_SHA=`git rev-parse HEAD`
         working-directory: test-output
       - name: Create comment
