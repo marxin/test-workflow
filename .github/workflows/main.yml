@@ -33,8 +33,8 @@ jobs:
         working-directory: test-output
       - name: Modify repo
         run: |
-          echo ${{ github.sha }} >> revision
+          echo ${{ github.sha }} > revision
           git add revision
-          git commit -a -m 'Update'
+          git commit -a -m 'Update\n\nhttps://github.com/marxin/test-workflow/commit${{ github.sha }}'
           git push
         working-directory: test-output
