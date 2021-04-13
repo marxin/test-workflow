@@ -38,16 +38,12 @@ jobs:
           git add revision
           git commit -a -m "Update" -m "https://github.com/marxin/test-workflow/commit/${{ github.sha }}"
           git push
+          export OUTPUT_SHA=`git rev-parse HEAD`
         working-directory: test-output
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{github.event.number}}
           body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown** :sparkles:
-            - Created by [create-or-update-comment][1]
-
-            [1]: https://github.com/peter-evans/create-or-update-comment
-          reactions: '+1'
+            It is published here: https://github.com/marxin/test-output/commit/$OUTPUT_SHA
         if: github.ref != 'refs/heads/master'
