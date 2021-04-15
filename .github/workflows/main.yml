@@ -17,7 +17,7 @@ jobs:
       - run: zypper -n install git
       - uses: actions/checkout@v2
 
-      - run: mkdir foobar && echo "abc" > foobar
+      - run: mkdir foobar && echo "abc" > foobar/file.txt
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
         with:
