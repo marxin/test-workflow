@@ -17,25 +17,35 @@ jobs:
       - run: zypper -n install git
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo "${{ github.ref }}" "${{ github.head_ref }}" "${{ github.base_ref }}" "${{github.event.number}}"
-      - name: Clone output repository
-        run: git clone https://${{ secrets.API_TOKEN_GITHUB }}@github.com/marxin/test-output.git
-      - name: Setup git config
-        run: |
-          git config --global user.email mliska@suse.cz
-          git config --global user.name marxin
-      - name: Change branch
-        run: |
-          git checkout -b ${{ github.head_ref }}
-          git push --set-upstream origin ${{ github.head_ref }}
-        if: github.ref != 'refs/heads/master'
-        working-directory: test-output
-      - name: Modify repo
-        run: |
-          echo ${{ github.sha }} > revision
-          git add revision
-          git commit -a -m "Update" -m "https://github.com/marxin/test-workflow/commit/${{ github.sha }}"
-          git push
-        working-directory: test-output
+      - run: mkdir foobar && echo "abc" > foobar
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "foobar"
+          target: "/srv/www/htdocs/splichaleu/"
+#
+#      # Runs a single command using the runners shell
+#      - name: Run a one-line script
+#        run: echo "${{ github.ref }}" "${{ github.head_ref }}" "${{ github.base_ref }}" "${{github.event.number}}"
+#      - name: Clone output repository
+#        run: git clone https://${{ secrets.API_TOKEN_GITHUB }}@github.com/marxin/test-output.git
+#      - name: Setup git config
+#        run: |
+#          git config --global user.email mliska@suse.cz
+#          git config --global user.name marxin
+#      - name: Change branch
+#        run: |
+#          git checkout -b ${{ github.head_ref }}
+#          git push --set-upstream origin ${{ github.head_ref }}
+#        if: github.ref != 'refs/heads/master'
+#        working-directory: test-output
+#      - name: Modify repo
+#        run: |
+#          echo ${{ github.sha }} > revision
+#          git add revision
+#          git commit -a -m "Update" -m "https://github.com/marxin/test-workflow/commit/${{ github.sha }}"
+#          git push
+#        working-directory: test-output
