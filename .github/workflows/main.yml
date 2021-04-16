@@ -14,9 +14,9 @@ jobs:
     container: "opensuse/tumbleweed"
 
     steps:
-      - run: zypper -n install git
+      - run: zypper -n install git coreutils
       - uses: actions/checkout@v2
-
+      - run: nproc
       - run: mkdir foobar && echo "abc" > foobar/file.txt
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
